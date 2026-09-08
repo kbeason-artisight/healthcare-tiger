@@ -16,7 +16,7 @@ docker-compose up --build
 
 - Backend: http://localhost:8000/api/
 - Frontend: http://localhost:5173
-- Postgres: localhost:5432 (db/user/pass: `healthcare`)
+- Postgres: internal only (`db:5432` inside the compose network; not exposed to host)
 
 First run applies migrations automatically. Seed a demo patient:
 
