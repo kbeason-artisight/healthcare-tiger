@@ -5,11 +5,9 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
+import Popover from "@mui/material/Popover";
 import Stack from "@mui/material/Stack";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -34,11 +32,11 @@ const NAV_LINKS = [
 export default function Layout({ patient, onLogout }: { patient: Patient; onLogout: () => void }) {
   const location = useLocation();
   const { mode, setMode } = useThemeMode();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   async function handleLogout() {
     await api.logout();
-    setMenuOpen(false);
+    setAnchorEl(null);
     onLogout();
   }
 
@@ -74,49 +72,56 @@ export default function Layout({ patient, onLogout }: { patient: Patient; onLogo
               );
             })}
           </Box>
-          <IconButton color="inherit" aria-label="Account" onClick={() => setMenuOpen(true)}>
+          <IconButton
+            color="inherit"
+            aria-label="Account"
+            onClick={(event) => setAnchorEl(event.currentTarget)}
+          >
             <AccountCircleIcon fontSize="large" />
           </IconButton>
         </Toolbar>
       </AppBar>
 
-      <Dialog open={menuOpen} onClose={() => setMenuOpen(false)} maxWidth="xs" fullWidth>
-        <DialogTitle>Account</DialogTitle>
-        <DialogContent>
-          <Stack spacing={3}>
-            <Typography variant="body1">{patient.full_name}</Typography>
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Stack spacing={3} sx={{ p: 3, minWidth: 260 }}>
+          <Typography variant="body1">{patient.full_name}</Typography>
 
-            <Box>
-              <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
-                Theme
-              </Typography>
-              <ToggleButtonGroup
-                value={mode}
-                exclusive
-                size="small"
-                onChange={(_event, next) => {
-                  if (next) setMode(next);
-                }}
-              >
-                <ToggleButton value="light">
-                  <LightModeIcon fontSize="small" sx={{ mr: 1 }} />
-                  Light
-                </ToggleButton>
-                <ToggleButton value="dark">
-                  <DarkModeIcon fontSize="small" sx={{ mr: 1 }} />
-                  Dark
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </Box>
+          <Box>
+            <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+              Theme
+            </Typography>
+            <ToggleButtonGroup
+              value={mode}
+              exclusive
+              size="small"
+              onChange={(_event, next) => {
+                if (next) setMode(next);
+              }}
+            >
+              <ToggleButton value="light">
+                <LightModeIcon fontSize="small" sx={{ mr: 1 }} />
+                Light
+              </ToggleButton>
+              <ToggleButton value="dark">
+                <DarkModeIcon fontSize="small" sx={{ mr: 1 }} />
+                Dark
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
 
-            <Divider />
+          <Divider />
 
-            <Button onClick={handleLogout} color="error" sx={{ alignSelf: "flex-start" }}>
-              Sign out
-            </Button>
-          </Stack>
-        </DialogContent>
-      </Dialog>
+          <Button onClick={handleLogout} color="error" sx={{ alignSelf: "flex-start" }}>
+            Sign out
+          </Button>
+        </Stack>
+      </Popover>
 
       <Container sx={{ mt: 4, mb: 4 }}>
         <Outlet />
