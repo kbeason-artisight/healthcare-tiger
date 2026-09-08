@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Appointment, HealthRecord, LabResult, Patient
+from .models import Appointment, HealthRecord, InsuranceSummary, LabResult, Medication, Patient
 
 
 class PatientSerializer(serializers.ModelSerializer):
@@ -31,3 +31,35 @@ class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = ["id", "provider_name", "reason", "scheduled_at", "location", "status"]
+
+
+class MedicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Medication
+        fields = [
+            "id",
+            "name",
+            "dosage",
+            "frequency",
+            "prescribing_provider",
+            "start_date",
+            "end_date",
+            "status",
+        ]
+
+
+class InsuranceSummarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InsuranceSummary
+        fields = [
+            "id",
+            "payer_name",
+            "plan_name",
+            "member_id",
+            "group_number",
+            "effective_date",
+            "copay_primary_care",
+            "copay_specialist",
+            "deductible_individual",
+            "deductible_met",
+        ]

@@ -4,11 +4,15 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Appointment, HealthRecord, LabResult
+from django.shortcuts import get_object_or_404
+
+from .models import Appointment, HealthRecord, InsuranceSummary, LabResult, Medication
 from .serializers import (
     AppointmentSerializer,
     HealthRecordSerializer,
+    InsuranceSummarySerializer,
     LabResultSerializer,
+    MedicationSerializer,
     PatientSerializer,
 )
 
@@ -63,3 +67,17 @@ class AppointmentListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Appointment.objects.filter(patient=self.request.user.patient)
+
+
+class MedicationListView(generics.ListAPIView):
+    serializer_class = MedicationSerializer
+
+    def get_queryset(self):
+        return Medication.objects.filter(patient=self.request.user.patient)
+
+
+class InsuranceSummaryView(generics.RetrieveAPIView):
+    serializer_class = InsuranceSummarySerializer
+
+    def get_object(self):
+        return get_object_or_404(InsuranceSummary, patient=self.request.user.patient)

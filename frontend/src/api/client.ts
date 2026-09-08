@@ -63,6 +63,30 @@ export interface Appointment {
   status: "scheduled" | "completed" | "cancelled";
 }
 
+export interface Medication {
+  id: number;
+  name: string;
+  dosage: string;
+  frequency: string;
+  prescribing_provider: string;
+  start_date: string;
+  end_date: string | null;
+  status: "active" | "discontinued";
+}
+
+export interface InsuranceSummary {
+  id: number;
+  payer_name: string;
+  plan_name: string;
+  member_id: string;
+  group_number: string;
+  effective_date: string;
+  copay_primary_care: string | null;
+  copay_specialist: string | null;
+  deductible_individual: string | null;
+  deductible_met: string | null;
+}
+
 export const api = {
   fetchCsrfCookie: () => request<{ csrfToken: string }>("/auth/csrf/"),
   login: async (username: string, password: string) => {
@@ -74,4 +98,6 @@ export const api = {
   healthRecords: () => request<HealthRecord[]>("/health-records/"),
   labResults: () => request<LabResult[]>("/lab-results/"),
   appointments: () => request<Appointment[]>("/appointments/"),
+  medications: () => request<Medication[]>("/medications/"),
+  insuranceSummary: () => request<InsuranceSummary>("/insurance-summary/"),
 };

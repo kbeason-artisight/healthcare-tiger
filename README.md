@@ -1,6 +1,6 @@
 # Patient Records Portal
 
-Demo healthcare app for PR-review interview exercises. Patients log in and view their own health records and lab results.
+Demo healthcare app for PR-review interview exercises. Patients log in and view their own health records, lab results, appointments, medications, and insurance/billing summary.
 
 ## Stack
 
@@ -44,6 +44,8 @@ Session-based auth via Django. Frontend must:
 | `/api/health-records/` | GET | session | Health records for the logged-in patient only |
 | `/api/lab-results/` | GET | session | Lab results for the logged-in patient only |
 | `/api/appointments/` | GET | session | Scheduled appointments for the logged-in patient only |
+| `/api/medications/` | GET | session | Medications for the logged-in patient only |
+| `/api/insurance-summary/` | GET | session | Insurance/billing summary for the logged-in patient (404 if none on file) |
 
 ## Data model
 
@@ -51,6 +53,12 @@ Session-based auth via Django. Frontend must:
 - `HealthRecord` — belongs to a `Patient`.
 - `LabResult` — belongs to a `Patient`.
 - `Appointment` — belongs to a `Patient`; provider name, reason, scheduled time, location, status (`scheduled`/`completed`/`cancelled`).
+- `Medication` — belongs to a `Patient`; name, dosage, frequency, prescriber, start/end date, status (`active`/`discontinued`).
+- `InsuranceSummary` — one-to-one with `Patient`; payer/plan info, copays, deductible.
+
+## Frontend pages
+
+`/` (dashboard: health records, lab results, appointments), `/medications`, `/billing`. All behind session auth via `Layout`, which also holds top nav.
 
 ## Development without Docker
 

@@ -1,0 +1,45 @@
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { Link as RouterLink, Outlet } from "react-router-dom";
+
+import { api, type Patient } from "../api/client";
+
+const NAV_LINKS = [
+  { to: "/", label: "Dashboard" },
+  { to: "/medications", label: "Medications" },
+  { to: "/billing", label: "Billing" },
+];
+
+export default function Layout({ patient, onLogout }: { patient: Patient; onLogout: () => void }) {
+  async function handleLogout() {
+    await api.logout();
+    onLogout();
+  }
+
+  return (
+    <Box>
+      <AppBar position="static">
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Box display="flex" alignItems="center" gap={2}>
+            <Typography variant="h6">{patient.full_name}</Typography>
+            {NAV_LINKS.map((link) => (
+              <Button key={link.to} color="inherit" component={RouterLink} to={link.to}>
+                {link.label}
+              </Button>
+            ))}
+          </Box>
+          <Button color="inherit" onClick={handleLogout}>
+            Sign out
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Container sx={{ mt: 4, mb: 4 }}>
+        <Outlet />
+      </Container>
+    </Box>
+  );
+}
