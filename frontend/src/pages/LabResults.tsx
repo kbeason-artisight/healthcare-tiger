@@ -21,8 +21,8 @@ export default function LabResults() {
       </Typography>
       <Paper>
         <List>
-          {labResults.map((result) => (
-            <ListItem key={result.id} divider>
+          {labResults.map((result, index) => (
+            <ListItem key={result.id} divider={index < labResults.length - 1}>
               <ListItemText
                 primary={`${result.test_name}: ${result.value} ${result.unit}`}
                 secondary={`Reference range: ${result.reference_range} — ${new Date(

@@ -21,8 +21,8 @@ export default function Appointments() {
       </Typography>
       <Paper>
         <List>
-          {appointments.map((appt) => (
-            <ListItem key={appt.id} divider>
+          {appointments.map((appt, index) => (
+            <ListItem key={appt.id} divider={index < appointments.length - 1}>
               <ListItemText
                 primary={`${appt.provider_name} — ${appt.reason}`}
                 secondary={`${new Date(appt.scheduled_at).toLocaleString()} · ${appt.location} · ${appt.status}`}

@@ -22,8 +22,8 @@ export default function Medications() {
       </Typography>
       <Paper>
         <List>
-          {medications.map((med) => (
-            <ListItem key={med.id} divider>
+          {medications.map((med, index) => (
+            <ListItem key={med.id} divider={index < medications.length - 1}>
               <ListItemText
                 primary={
                   <>

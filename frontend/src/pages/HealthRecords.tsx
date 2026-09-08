@@ -21,8 +21,8 @@ export default function HealthRecords() {
       </Typography>
       <Paper>
         <List>
-          {healthRecords.map((record) => (
-            <ListItem key={record.id} divider>
+          {healthRecords.map((record, index) => (
+            <ListItem key={record.id} divider={index < healthRecords.length - 1}>
               <ListItemText
                 primary={record.title}
                 secondary={`${record.record_type} — ${new Date(record.created_at).toLocaleDateString()}${
