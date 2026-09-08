@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Link as RouterLink, Outlet, useLocation } from "react-router-dom";
 
 import { api, type Patient } from "../api/client";
+import logo from "../assets/logo.svg";
 
 const NAV_LINKS = [
   { to: "/health-records", label: "Health Records" },
@@ -30,9 +31,7 @@ export default function Layout({ patient, onLogout }: { patient: Patient; onLogo
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box display="flex" alignItems="center" gap={2}>
             <Box display="flex" alignItems="center" gap={1} sx={{ mr: 2 }}>
-              <Typography fontSize={28} aria-label="Healthcare Tiger" role="img">
-                🐯🩺
-              </Typography>
+              <Box component="img" src={logo} alt="Healthcare Tiger" sx={{ width: 36, height: 36 }} />
               <Typography variant="h6" fontWeight={700}>
                 Healthcare Tiger
               </Typography>

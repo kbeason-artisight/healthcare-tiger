@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { useState, type FormEvent } from "react";
 
 import { api, type Patient } from "../api/client";
+import logo from "../assets/logo.svg";
 
 export default function Login({ onLogin }: { onLogin: (patient: Patient) => void }) {
   const [username, setUsername] = useState("");
@@ -27,9 +28,10 @@ export default function Login({ onLogin }: { onLogin: (patient: Patient) => void
   return (
     <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="grey.100">
       <Paper component="form" onSubmit={handleSubmit} sx={{ p: 4, width: 360 }}>
-        <Typography variant="h5" gutterBottom>
-          🐯 Healthcare Tiger
-        </Typography>
+        <Box display="flex" alignItems="center" justifyContent="center" gap={1.5} sx={{ mb: 2 }}>
+          <Box component="img" src={logo} alt="Healthcare Tiger" sx={{ width: 48, height: 48 }} />
+          <Typography variant="h5">Healthcare Tiger</Typography>
+        </Box>
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>
             {error}
