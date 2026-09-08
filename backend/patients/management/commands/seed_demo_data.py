@@ -49,7 +49,11 @@ class Command(BaseCommand):
             HealthRecord.objects.get_or_create(
                 patient=patient,
                 title=record["title"],
-                defaults={"record_type": record["record_type"], "notes": record["notes"]},
+                defaults={
+                    "record_type": record["record_type"],
+                    "notes": record["notes"],
+                    "created_at": record["created_at"],
+                },
             )
 
         for result in spec["lab_results"]:
@@ -112,26 +116,43 @@ class Command(BaseCommand):
                     "title": "Annual physical exam",
                     "record_type": "visit",
                     "notes": "Routine checkup, no concerns noted.",
+                    "created_at": now - timedelta(days=180),
                 },
                 {
                     "title": "Sprained ankle — urgent care",
                     "record_type": "visit",
                     "notes": "Grade 1 lateral ankle sprain from running. RICE protocol advised, follow up in 2 weeks if not improved.",
+                    "created_at": now - timedelta(days=120),
+                },
+                {
+                    "title": "Ankle sprain follow-up",
+                    "record_type": "visit",
+                    "notes": "Swelling resolved, full range of motion restored. Cleared to resume running.",
+                    "created_at": now - timedelta(days=106),
                 },
                 {
                     "title": "Seasonal allergy diagnosis",
                     "record_type": "diagnosis",
                     "notes": "Allergic rhinitis, likely pollen-triggered. Prescribed antihistamine.",
+                    "created_at": now - timedelta(days=60),
                 },
                 {
                     "title": "Influenza vaccination",
                     "record_type": "immunization",
                     "notes": "2026-2027 seasonal flu shot administered, left deltoid. No adverse reaction observed.",
+                    "created_at": now - timedelta(days=30),
                 },
                 {
                     "title": "Dermatology consult",
                     "record_type": "visit",
                     "notes": "Evaluated mole on right shoulder, benign appearance, no biopsy needed. Recheck in 12 months.",
+                    "created_at": now - timedelta(days=30),
+                },
+                {
+                    "title": "Vitamin D deficiency follow-up",
+                    "record_type": "visit",
+                    "notes": "Discussed low vitamin D lab result, started supplementation, recheck in 3 months.",
+                    "created_at": now - timedelta(days=5),
                 },
             ],
             "lab_results": [
@@ -286,21 +307,37 @@ class Command(BaseCommand):
                     "title": "Annual physical exam",
                     "record_type": "visit",
                     "notes": "Routine checkup. Blood pressure slightly elevated, advised to monitor.",
+                    "created_at": now - timedelta(days=200),
                 },
                 {
                     "title": "Shellfish allergy — anaphylaxis",
                     "record_type": "diagnosis",
                     "notes": "Emergency room visit after accidental shellfish exposure. Treated with epinephrine, observed 4 hours, discharged stable. Epinephrine auto-injector prescribed.",
+                    "created_at": now - timedelta(days=340),
+                },
+                {
+                    "title": "Allergy & immunology consult",
+                    "record_type": "visit",
+                    "notes": "Reviewed anaphylaxis episode, confirmed shellfish trigger via tryptase panel. Auto-injector training provided.",
+                    "created_at": now - timedelta(days=340),
                 },
                 {
                     "title": "Hypertension follow-up",
                     "record_type": "visit",
                     "notes": "Blood pressure improved on current medication. Continue current regimen, recheck in 6 months.",
+                    "created_at": now - timedelta(days=60),
                 },
                 {
                     "title": "Lower back strain — physical therapy referral",
                     "record_type": "visit",
                     "notes": "Chronic lower back pain from lifting injury. Referred to physical therapy, 6-week course recommended.",
+                    "created_at": now - timedelta(days=14),
+                },
+                {
+                    "title": "Physical therapy progress note",
+                    "record_type": "visit",
+                    "notes": "First PT session completed, reports reduced stiffness. Continuing 6-week course.",
+                    "created_at": now - timedelta(days=14),
                 },
             ],
             "lab_results": [

@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 
 class Patient(models.Model):
@@ -30,7 +31,7 @@ class HealthRecord(models.Model):
     record_type = models.CharField(max_length=64)
     title = models.CharField(max_length=255)
     notes = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ["-created_at"]
