@@ -24,7 +24,9 @@ First run applies migrations automatically. Seed a demo patient:
 docker-compose exec backend python manage.py seed_demo_data
 ```
 
-Demo login: `jane.doe` / `demopassword123`
+Demo logins (password `demopassword123` for both):
+- `jane.doe`
+- `anne.chovy`
 
 ## Auth flow
 
