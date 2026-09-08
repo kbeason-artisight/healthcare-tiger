@@ -1,14 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 140" role="img" aria-label="Healthcare Tiger">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 118" role="img" aria-label="Healthcare Tiger">
   <!-- Healthcare Tiger — kawaii tiger mascot wearing a stethoscope -->
   <defs>
     <clipPath id="ht-head-clip">
       <path d="M12.5 13 C8 24, 6 33, 7.5 44 C9 62, 16 76, 29 82 C35.5 85, 43 86.5, 50 86.5 C57 86.5, 64.5 85, 71 82 C84 76, 91 62, 92.5 44 C94 33, 92 24, 87.5 13 C89.5 8.5, 85 6.5, 79 9.5 C73 12.5, 66 17.5, 62 22.5 C58 21, 42 21, 38 22.5 C34 17.5, 27 12.5, 21 9.5 C15 6.5, 10.5 8.5, 12.5 13 Z"/>
     </clipPath>
   </defs>
-
-  <!-- collar/coat: gives the stethoscope shoulders to hang from. Drawn first so
-       the head overlaps and hides the neck seam. -->
-  <path d="M28 84 C16 90, 9 100, 9 113 L9 140 L91 140 L91 113 C91 100, 84 90, 72 84 C64 93, 57 97, 50 97 C43 97, 36 93, 28 84 Z" fill="#DCEBF7" stroke="#2B1B0E" stroke-width="3.4" stroke-linejoin="round"/>
 
   <!-- head + ears: one continuous silhouette -->
   <path d="M12.5 13 C8 24, 6 33, 7.5 44 C9 62, 16 76, 29 82 C35.5 85, 43 86.5, 50 86.5 C57 86.5, 64.5 85, 71 82 C84 76, 91 62, 92.5 44 C94 33, 92 24, 87.5 13 C89.5 8.5, 85 6.5, 79 9.5 C73 12.5, 66 17.5, 62 22.5 C58 21, 42 21, 38 22.5 C34 17.5, 27 12.5, 21 9.5 C15 6.5, 10.5 8.5, 12.5 13 Z" fill="#F2934A"/>
@@ -63,42 +59,34 @@
     <path d="M50 71.6 C51.4 74.6, 55.4 75.2, 57.2 73.2"/>
   </g>
 
-  <!-- stethoscope: binaural tubes drape from behind the ears, over both
-       shoulders of the collar, converge at a Y-piece on the chest, and drop
-       straight into the chestpiece. This is the standard "worn around the
-       neck" silhouette — it needs shoulders to rest on, which is why the
-       collar exists. -->
-  <g fill="none" stroke-linecap="round">
-    <g stroke="#1E4FBF" stroke-width="5">
-      <path d="M28 91 C20 98, 17 106, 20 113 C23 120, 34 124, 50 121"/>
-      <path d="M72 91 C80 98, 83 106, 80 113 C77 120, 66 124, 50 121"/>
+  <!-- stethoscope: classic standalone icon shape (earpieces -> wide loop -> single
+       tail -> ringed chestpiece). Routed along the OUTSIDE of the head silhouette
+       so it never crosses the face, converging into a loop just below the chin
+       and trailing off to a chestpiece hanging in the open space below. -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- dark outline pass, drawn wider and behind -->
+    <g stroke="#2B1B0E" stroke-width="9.6">
+      <path d="M14 28 C6 36, 4 48, 6 60 C8 72, 16 82, 28 86 C36 88.5, 44 88.5, 49 87.5"/>
+      <path d="M86 28 C94 36, 96 48, 94 60 C92 72, 84 82, 72 86 C64 88.5, 56 88.5, 51 87.5"/>
+      <path d="M50 87.7 C58 92, 65 95.5, 73 97.5"/>
     </g>
-    <g stroke="#3B82F6" stroke-width="3.6">
-      <path d="M28 91 C20 98, 17 106, 20 113 C23 120, 34 124, 50 121"/>
-      <path d="M72 91 C80 98, 83 106, 80 113 C77 120, 66 124, 50 121"/>
-    </g>
-    <g stroke="#7FB0FF" stroke-width="1.1" opacity=".5">
-      <path d="M28 91 C20 98, 17 106, 20 113 C23 120, 34 124, 50 121"/>
-      <path d="M72 91 C80 98, 83 106, 80 113 C77 120, 66 124, 50 121"/>
+    <!-- gray tube -->
+    <g stroke="#9CA4AF" stroke-width="7">
+      <path d="M14 28 C6 36, 4 48, 6 60 C8 72, 16 82, 28 86 C36 88.5, 44 88.5, 49 87.5"/>
+      <path d="M86 28 C94 36, 96 48, 94 60 C92 72, 84 82, 72 86 C64 88.5, 56 88.5, 51 87.5"/>
+      <path d="M50 87.7 C58 92, 65 95.5, 73 97.5"/>
     </g>
   </g>
 
-  <!-- earpiece tips, where the tubes disappear behind the jaw toward the ears -->
-  <g fill="#1E4FBF">
-    <circle cx="28" cy="91" r="3.6"/>
-    <circle cx="72" cy="91" r="3.6"/>
+  <!-- earpieces, tucked just outside the ear roots -->
+  <g stroke="#2B1B0E" stroke-width="1.6">
+    <ellipse cx="13" cy="26" rx="5" ry="6" fill="#9CA4AF" transform="rotate(-30 13 26)"/>
+    <ellipse cx="87" cy="26" rx="5" ry="6" fill="#9CA4AF" transform="rotate(30 87 26)"/>
   </g>
-  <g fill="#7FB0FF">
-    <circle cx="28" cy="91" r="2"/>
-    <circle cx="72" cy="91" r="2"/>
-  </g>
-
-  <!-- Y-piece -->
-  <circle cx="50" cy="121" r="3.2" fill="#1E4FBF"/>
 
   <!-- chestpiece -->
-  <circle cx="50" cy="130.5" r="9.5" fill="#2B1B0E"/>
-  <circle cx="50" cy="130.5" r="7.7" fill="#3B82F6"/>
-  <circle cx="50" cy="130.5" r="5.3" fill="#E3ECFA"/>
-  <circle cx="47" cy="127.5" r="1.9" fill="#FFFFFF" opacity=".6"/>
+  <circle cx="77" cy="99.5" r="13.5" fill="#2B1B0E"/>
+  <circle cx="77" cy="99.5" r="11" fill="#9CA4AF"/>
+  <circle cx="77" cy="99.5" r="7" fill="#FFFFFF"/>
+  <circle cx="77" cy="99.5" r="2.8" fill="#9CA4AF"/>
 </svg>
