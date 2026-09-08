@@ -1,11 +1,14 @@
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Paper from "@mui/material/Paper";
+import DescriptionIcon from "@mui/icons-material/Description";
+import Avatar from "@mui/material/Avatar";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 
 import { api, type HealthRecord } from "../api/client";
+import PageHeader from "../components/PageHeader";
 
 export default function HealthRecords() {
   const [healthRecords, setHealthRecords] = useState<HealthRecord[]>([]);
@@ -16,28 +19,45 @@ export default function HealthRecords() {
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
-        Health Records
-      </Typography>
-      <Paper>
-        <List>
-          {healthRecords.map((record, index) => (
-            <ListItem key={record.id} divider={index < healthRecords.length - 1}>
-              <ListItemText
-                primary={record.title}
-                secondary={`${record.record_type} — ${new Date(record.created_at).toLocaleDateString()}${
-                  record.notes ? ` — ${record.notes}` : ""
-                }`}
-              />
-            </ListItem>
-          ))}
-          {healthRecords.length === 0 && (
-            <ListItem>
-              <ListItemText primary="No health records yet." />
-            </ListItem>
-          )}
-        </List>
-      </Paper>
+      <PageHeader
+        icon={DescriptionIcon}
+        title="Health Records"
+        subtitle="Visit summaries and notes from your care team"
+      />
+      <Stack spacing={2}>
+        {healthRecords.map((record) => (
+          <Card key={record.id} variant="outlined">
+            <CardContent>
+              <Stack direction="row" spacing={2} alignItems="flex-start">
+                <Avatar sx={{ bgcolor: "primary.light", width: 40, height: 40 }}>
+                  <DescriptionIcon fontSize="small" />
+                </Avatar>
+                <Stack spacing={0.5} flexGrow={1} minWidth={0}>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1}>
+                    <Typography variant="subtitle1" fontWeight={600}>
+                      {record.title}
+                    </Typography>
+                    <Chip size="small" label={record.record_type} />
+                  </Stack>
+                  <Typography variant="body2" color="text.secondary">
+                    {new Date(record.created_at).toLocaleDateString(undefined, {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </Typography>
+                  {record.notes && (
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                      {record.notes}
+                    </Typography>
+                  )}
+                </Stack>
+              </Stack>
+            </CardContent>
+          </Card>
+        ))}
+        {healthRecords.length === 0 && <Typography color="text.secondary">No health records yet.</Typography>}
+      </Stack>
     </>
   );
 }

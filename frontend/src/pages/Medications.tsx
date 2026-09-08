@@ -1,12 +1,14 @@
+import MedicationIcon from "@mui/icons-material/Medication";
+import Avatar from "@mui/material/Avatar";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 
 import { api, type Medication } from "../api/client";
+import PageHeader from "../components/PageHeader";
 
 export default function Medications() {
   const [medications, setMedications] = useState<Medication[]>([]);
@@ -17,38 +19,45 @@ export default function Medications() {
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
-        Medications
-      </Typography>
-      <Paper>
-        <List>
-          {medications.map((med, index) => (
-            <ListItem key={med.id} divider={index < medications.length - 1}>
-              <ListItemText
-                primary={
-                  <>
-                    {med.name} {med.dosage && `— ${med.dosage}`}{" "}
+      <PageHeader icon={MedicationIcon} title="Medications" subtitle="Current and past prescriptions on file" />
+      <Stack spacing={2}>
+        {medications.map((med) => (
+          <Card key={med.id} variant="outlined">
+            <CardContent>
+              <Stack direction="row" spacing={2} alignItems="flex-start">
+                <Avatar sx={{ bgcolor: "primary.light", width: 40, height: 40 }}>
+                  <MedicationIcon fontSize="small" />
+                </Avatar>
+                <Stack spacing={0.5} flexGrow={1} minWidth={0}>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1}>
+                    <Typography variant="subtitle1" fontWeight={600}>
+                      {med.name}
+                      {med.dosage && (
+                        <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1 }}>
+                          {med.dosage}
+                        </Typography>
+                      )}
+                    </Typography>
                     <Chip
                       size="small"
                       label={med.status}
                       color={med.status === "active" ? "success" : "default"}
-                      sx={{ ml: 1 }}
                     />
-                  </>
-                }
-                secondary={`${med.frequency || "As directed"} · Prescribed by ${
-                  med.prescribing_provider || "unknown provider"
-                } · started ${med.start_date}${med.end_date ? ` · ended ${med.end_date}` : ""}`}
-              />
-            </ListItem>
-          ))}
-          {medications.length === 0 && (
-            <ListItem>
-              <ListItemText primary="No medications on file." />
-            </ListItem>
-          )}
-        </List>
-      </Paper>
+                  </Stack>
+                  <Typography variant="body2" color="text.secondary">
+                    {med.frequency || "As directed"} · Prescribed by {med.prescribing_provider || "unknown provider"}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Started {med.start_date}
+                    {med.end_date ? ` · Ended ${med.end_date}` : ""}
+                  </Typography>
+                </Stack>
+              </Stack>
+            </CardContent>
+          </Card>
+        ))}
+        {medications.length === 0 && <Typography color="text.secondary">No medications on file.</Typography>}
+      </Stack>
     </>
   );
 }
