@@ -110,10 +110,11 @@ export default function Layout({ patient, onLogout }: { patient: Patient; onLogo
                   to={link.to}
                   sx={{
                     fontWeight: isActive ? 700 : 400,
-                    borderBottom: 2,
-                    borderColor: isActive ? "common.white" : "transparent",
-                    borderStyle: "solid",
-                    borderRadius: 0,
+                    px: 2,
+                    bgcolor: isActive ? "rgba(255,255,255,0.22)" : "transparent",
+                    "&:hover": {
+                      bgcolor: isActive ? "rgba(255,255,255,0.28)" : "rgba(255,255,255,0.12)",
+                    },
                   }}
                 >
                   {link.label}
