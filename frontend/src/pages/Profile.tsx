@@ -53,7 +53,7 @@ export default function Profile() {
   return (
     <>
       <PageHeader icon={PersonIcon} title="Profile" subtitle="Your personal and demographic information" />
-      <Card variant="outlined">
+      <Card>
         <CardContent sx={{ p: 3 }}>
           <Typography variant="subtitle2" color="text.secondary" gutterBottom>
             Identity

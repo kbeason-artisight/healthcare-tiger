@@ -29,7 +29,7 @@ export default function Appointments() {
       <PageHeader icon={EventIcon} title="Appointments" subtitle="Upcoming and past visits with your care team" />
       <Stack spacing={2}>
         {appointments.map((appt) => (
-          <Card key={appt.id} variant="outlined">
+          <Card key={appt.id}>
             <CardContent>
               <Stack direction="row" spacing={2} alignItems="flex-start">
                 <Avatar sx={{ bgcolor: "primary.light", width: 40, height: 40 }}>

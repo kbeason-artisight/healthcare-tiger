@@ -22,7 +22,7 @@ export default function Medications() {
       <PageHeader icon={MedicationIcon} title="Medications" subtitle="Current and past prescriptions on file" />
       <Stack spacing={2}>
         {medications.map((med) => (
-          <Card key={med.id} variant="outlined">
+          <Card key={med.id}>
             <CardContent>
               <Stack direction="row" spacing={2} alignItems="flex-start">
                 <Avatar sx={{ bgcolor: "primary.light", width: 40, height: 40 }}>

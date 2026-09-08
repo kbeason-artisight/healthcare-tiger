@@ -21,7 +21,7 @@ export default function LabResults() {
       <PageHeader icon={ScienceIcon} title="Lab Results" subtitle="Recorded values from your recent lab work" />
       <Stack spacing={2}>
         {labResults.map((result) => (
-          <Card key={result.id} variant="outlined">
+          <Card key={result.id}>
             <CardContent>
               <Stack direction="row" spacing={2} alignItems="flex-start">
                 <Avatar sx={{ bgcolor: "primary.light", width: 40, height: 40 }}>

@@ -37,14 +37,14 @@ export default function Billing() {
     <>
       <PageHeader icon={ShieldIcon} title="Insurance & Billing" subtitle="Your coverage details and cost-sharing" />
       {notFound && (
-        <Card variant="outlined">
+        <Card>
           <CardContent>
             <Typography color="text.secondary">No insurance information on file.</Typography>
           </CardContent>
         </Card>
       )}
       {summary && (
-        <Card variant="outlined">
+        <Card>
           <CardContent sx={{ p: 3 }}>
             <Typography variant="subtitle2" color="text.secondary" gutterBottom>
               Plan details

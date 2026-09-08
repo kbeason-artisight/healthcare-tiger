@@ -26,7 +26,7 @@ export default function HealthRecords() {
       />
       <Stack spacing={2}>
         {healthRecords.map((record) => (
-          <Card key={record.id} variant="outlined">
+          <Card key={record.id}>
             <CardContent>
               <Stack direction="row" spacing={2} alignItems="flex-start">
                 <Avatar sx={{ bgcolor: "primary.light", width: 40, height: 40 }}>
