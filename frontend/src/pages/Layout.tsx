@@ -1,13 +1,26 @@
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
 import { Link as RouterLink, Outlet, useLocation } from "react-router-dom";
 
 import { api, type Patient } from "../api/client";
 import logo from "../assets/logo.svg";
+import { useThemeMode } from "../theme/ThemeModeProvider";
 
 const NAV_LINKS = [
   { to: "/health-records", label: "Health Records" },
@@ -20,9 +33,12 @@ const NAV_LINKS = [
 
 export default function Layout({ patient, onLogout }: { patient: Patient; onLogout: () => void }) {
   const location = useLocation();
+  const { mode, setMode } = useThemeMode();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   async function handleLogout() {
     await api.logout();
+    setMenuOpen(false);
     onLogout();
   }
 
@@ -37,7 +53,6 @@ export default function Layout({ patient, onLogout }: { patient: Patient; onLogo
                 Healthcare Tiger
               </Typography>
             </Box>
-            <Typography variant="body1">{patient.full_name}</Typography>
             {NAV_LINKS.map((link) => {
               const isActive = location.pathname === link.to;
               return (
@@ -48,7 +63,7 @@ export default function Layout({ patient, onLogout }: { patient: Patient; onLogo
                   to={link.to}
                   sx={{
                     fontWeight: isActive ? 700 : 400,
-                    borderBottom: isActive ? 2 : 2,
+                    borderBottom: 2,
                     borderColor: isActive ? "common.white" : "transparent",
                     borderStyle: "solid",
                     borderRadius: 0,
@@ -59,11 +74,50 @@ export default function Layout({ patient, onLogout }: { patient: Patient; onLogo
               );
             })}
           </Box>
-          <Button color="inherit" onClick={handleLogout}>
-            Sign out
-          </Button>
+          <IconButton color="inherit" aria-label="Account" onClick={() => setMenuOpen(true)}>
+            <AccountCircleIcon fontSize="large" />
+          </IconButton>
         </Toolbar>
       </AppBar>
+
+      <Dialog open={menuOpen} onClose={() => setMenuOpen(false)} maxWidth="xs" fullWidth>
+        <DialogTitle>Account</DialogTitle>
+        <DialogContent>
+          <Stack spacing={3}>
+            <Typography variant="body1">{patient.full_name}</Typography>
+
+            <Box>
+              <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+                Theme
+              </Typography>
+              <ToggleButtonGroup
+                value={mode}
+                exclusive
+                size="small"
+                onChange={(_event, next) => {
+                  if (next) setMode(next);
+                }}
+              >
+                <ToggleButton value="light">
+                  <LightModeIcon fontSize="small" sx={{ mr: 1 }} />
+                  Light
+                </ToggleButton>
+                <ToggleButton value="dark">
+                  <DarkModeIcon fontSize="small" sx={{ mr: 1 }} />
+                  Dark
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Box>
+
+            <Divider />
+
+            <Button onClick={handleLogout} color="error" sx={{ alignSelf: "flex-start" }}>
+              Sign out
+            </Button>
+          </Stack>
+        </DialogContent>
+      </Dialog>
+
       <Container sx={{ mt: 4, mb: 4 }}>
         <Outlet />
       </Container>
