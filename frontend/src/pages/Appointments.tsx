@@ -17,6 +17,46 @@ const STATUS_COLOR: Record<Appointment["status"], "primary" | "success" | "defau
   cancelled: "default",
 };
 
+function AppointmentCard({ appt }: { appt: Appointment }) {
+  return (
+    <Card>
+      <CardContent>
+        <Stack direction="row" spacing={2} alignItems="flex-start">
+          <Avatar sx={{ bgcolor: "primary.light", width: 40, height: 40 }}>
+            <EventIcon fontSize="small" />
+          </Avatar>
+          <Stack spacing={0.5} flexGrow={1} minWidth={0}>
+            <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1}>
+              <Typography variant="subtitle1" fontWeight={600}>
+                {appt.provider_name}
+              </Typography>
+              <Chip size="small" label={appt.status} color={STATUS_COLOR[appt.status]} />
+            </Stack>
+            <Typography variant="body2">{appt.reason}</Typography>
+            <Stack direction="row" spacing={2} flexWrap="wrap" sx={{ mt: 0.5 }}>
+              <Typography variant="body2" color="text.secondary">
+                {new Date(appt.scheduled_at).toLocaleString(undefined, {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "2-digit",
+                })}
+              </Typography>
+              <Stack direction="row" spacing={0.5} alignItems="center">
+                <LocationOnIcon fontSize="inherit" color="disabled" />
+                <Typography variant="body2" color="text.secondary">
+                  {appt.location}
+                </Typography>
+              </Stack>
+            </Stack>
+          </Stack>
+        </Stack>
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function Appointments() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
 
@@ -24,48 +64,36 @@ export default function Appointments() {
     api.appointments().then(setAppointments);
   }, []);
 
+  const now = Date.now();
+  const upcoming = appointments
+    .filter((appt) => new Date(appt.scheduled_at).getTime() >= now)
+    .sort((a, b) => new Date(a.scheduled_at).getTime() - new Date(b.scheduled_at).getTime());
+  const past = appointments
+    .filter((appt) => new Date(appt.scheduled_at).getTime() < now)
+    .sort((a, b) => new Date(b.scheduled_at).getTime() - new Date(a.scheduled_at).getTime());
+
   return (
     <>
       <PageHeader icon={EventIcon} title="Appointments" subtitle="Upcoming and past visits with your care team" />
-      <Stack spacing={2}>
-        {appointments.map((appt) => (
-          <Card key={appt.id}>
-            <CardContent>
-              <Stack direction="row" spacing={2} alignItems="flex-start">
-                <Avatar sx={{ bgcolor: "primary.light", width: 40, height: 40 }}>
-                  <EventIcon fontSize="small" />
-                </Avatar>
-                <Stack spacing={0.5} flexGrow={1} minWidth={0}>
-                  <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1}>
-                    <Typography variant="subtitle1" fontWeight={600}>
-                      {appt.provider_name}
-                    </Typography>
-                    <Chip size="small" label={appt.status} color={STATUS_COLOR[appt.status]} />
-                  </Stack>
-                  <Typography variant="body2">{appt.reason}</Typography>
-                  <Stack direction="row" spacing={2} flexWrap="wrap" sx={{ mt: 0.5 }}>
-                    <Typography variant="body2" color="text.secondary">
-                      {new Date(appt.scheduled_at).toLocaleString(undefined, {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                        hour: "numeric",
-                        minute: "2-digit",
-                      })}
-                    </Typography>
-                    <Stack direction="row" spacing={0.5} alignItems="center">
-                      <LocationOnIcon fontSize="inherit" color="disabled" />
-                      <Typography variant="body2" color="text.secondary">
-                        {appt.location}
-                      </Typography>
-                    </Stack>
-                  </Stack>
-                </Stack>
-              </Stack>
-            </CardContent>
-          </Card>
+
+      <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+        Upcoming
+      </Typography>
+      <Stack spacing={2} sx={{ mb: 4 }}>
+        {upcoming.map((appt) => (
+          <AppointmentCard key={appt.id} appt={appt} />
         ))}
-        {appointments.length === 0 && <Typography color="text.secondary">No appointments scheduled.</Typography>}
+        {upcoming.length === 0 && <Typography color="text.secondary">No upcoming appointments.</Typography>}
+      </Stack>
+
+      <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+        Past
+      </Typography>
+      <Stack spacing={2}>
+        {past.map((appt) => (
+          <AppointmentCard key={appt.id} appt={appt} />
+        ))}
+        {past.length === 0 && <Typography color="text.secondary">No past appointments.</Typography>}
       </Stack>
     </>
   );
