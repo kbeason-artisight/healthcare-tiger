@@ -4,12 +4,30 @@ import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 
 import { api, type Appointment } from "../api/client";
 import PageHeader from "../components/PageHeader";
+
+function SectionHeading({ children }: { children: string }) {
+  return (
+    <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 2 }}>
+      <Typography
+        variant="overline"
+        color="primary.main"
+        fontWeight={800}
+        letterSpacing={1.2}
+        whiteSpace="nowrap"
+      >
+        {children}
+      </Typography>
+      <Divider sx={{ flexGrow: 1 }} />
+    </Stack>
+  );
+}
 
 const STATUS_COLOR: Record<Appointment["status"], "primary" | "success" | "default"> = {
   scheduled: "primary",
@@ -76,9 +94,7 @@ export default function Appointments() {
     <>
       <PageHeader icon={EventIcon} title="Appointments" subtitle="Upcoming and past visits with your care team" />
 
-      <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-        Upcoming
-      </Typography>
+      <SectionHeading>Upcoming</SectionHeading>
       <Stack spacing={2} sx={{ mb: 4 }}>
         {upcoming.map((appt) => (
           <AppointmentCard key={appt.id} appt={appt} />
@@ -86,9 +102,7 @@ export default function Appointments() {
         {upcoming.length === 0 && <Typography color="text.secondary">No upcoming appointments.</Typography>}
       </Stack>
 
-      <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-        Past
-      </Typography>
+      <SectionHeading>Past</SectionHeading>
       <Stack spacing={2}>
         {past.map((appt) => (
           <AppointmentCard key={appt.id} appt={appt} />
