@@ -38,3 +38,23 @@ class LabResult(models.Model):
 
     def __str__(self):
         return f"{self.test_name} for {self.patient}"
+
+
+class Appointment(models.Model):
+    class Status(models.TextChoices):
+        SCHEDULED = "scheduled", "Scheduled"
+        COMPLETED = "completed", "Completed"
+        CANCELLED = "cancelled", "Cancelled"
+
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="appointments")
+    provider_name = models.CharField(max_length=255)
+    reason = models.CharField(max_length=255, blank=True)
+    scheduled_at = models.DateTimeField()
+    location = models.CharField(max_length=255, blank=True)
+    status = models.CharField(max_length=16, choices=Status.choices, default=Status.SCHEDULED)
+
+    class Meta:
+        ordering = ["scheduled_at"]
+
+    def __str__(self):
+        return f"{self.provider_name} on {self.scheduled_at} ({self.patient})"

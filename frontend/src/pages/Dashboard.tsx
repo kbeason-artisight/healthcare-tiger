@@ -10,15 +10,17 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 
-import { api, type HealthRecord, type LabResult, type Patient } from "../api/client";
+import { api, type Appointment, type HealthRecord, type LabResult, type Patient } from "../api/client";
 
 export default function Dashboard({ patient, onLogout }: { patient: Patient; onLogout: () => void }) {
   const [healthRecords, setHealthRecords] = useState<HealthRecord[]>([]);
   const [labResults, setLabResults] = useState<LabResult[]>([]);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
 
   useEffect(() => {
     api.healthRecords().then(setHealthRecords);
     api.labResults().then(setLabResults);
+    api.appointments().then(setAppointments);
   }, []);
 
   async function handleLogout() {
@@ -80,6 +82,26 @@ export default function Dashboard({ patient, onLogout }: { patient: Patient; onL
             {labResults.length === 0 && (
               <ListItem>
                 <ListItemText primary="No lab results yet." />
+              </ListItem>
+            )}
+          </List>
+        </Paper>
+        <Typography variant="h6" sx={{ mt: 3 }}>
+          Appointments
+        </Typography>
+        <Paper>
+          <List>
+            {appointments.map((appt) => (
+              <ListItem key={appt.id} divider>
+                <ListItemText
+                  primary={`${appt.provider_name} — ${appt.reason}`}
+                  secondary={`${new Date(appt.scheduled_at).toLocaleString()} · ${appt.location} · ${appt.status}`}
+                />
+              </ListItem>
+            ))}
+            {appointments.length === 0 && (
+              <ListItem>
+                <ListItemText primary="No appointments scheduled." />
               </ListItem>
             )}
           </List>

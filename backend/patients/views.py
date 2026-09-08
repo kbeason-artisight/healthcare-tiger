@@ -4,8 +4,13 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import HealthRecord, LabResult
-from .serializers import HealthRecordSerializer, LabResultSerializer, PatientSerializer
+from .models import Appointment, HealthRecord, LabResult
+from .serializers import (
+    AppointmentSerializer,
+    HealthRecordSerializer,
+    LabResultSerializer,
+    PatientSerializer,
+)
 
 
 class CsrfView(APIView):
@@ -51,3 +56,10 @@ class LabResultListView(generics.ListAPIView):
 
     def get_queryset(self):
         return LabResult.objects.filter(patient=self.request.user.patient)
+
+
+class AppointmentListView(generics.ListAPIView):
+    serializer_class = AppointmentSerializer
+
+    def get_queryset(self):
+        return Appointment.objects.filter(patient=self.request.user.patient)

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import HealthRecord, LabResult, Patient
+from .models import Appointment, HealthRecord, LabResult, Patient
 
 
 class PatientSerializer(serializers.ModelSerializer):
@@ -25,3 +25,9 @@ class LabResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = LabResult
         fields = ["id", "test_name", "value", "unit", "reference_range", "recorded_at"]
+
+
+class AppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appointment
+        fields = ["id", "provider_name", "reason", "scheduled_at", "location", "status"]

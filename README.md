@@ -43,12 +43,14 @@ Session-based auth via Django. Frontend must:
 | `/api/me/` | GET | session | Current patient profile |
 | `/api/health-records/` | GET | session | Health records for the logged-in patient only |
 | `/api/lab-results/` | GET | session | Lab results for the logged-in patient only |
+| `/api/appointments/` | GET | session | Scheduled appointments for the logged-in patient only |
 
 ## Data model
 
 - `Patient` — one-to-one with Django `User`, has `mrn` (medical record number).
 - `HealthRecord` — belongs to a `Patient`.
 - `LabResult` — belongs to a `Patient`.
+- `Appointment` — belongs to a `Patient`; provider name, reason, scheduled time, location, status (`scheduled`/`completed`/`cancelled`).
 
 ## Development without Docker
 

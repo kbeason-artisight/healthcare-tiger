@@ -1,8 +1,10 @@
+from datetime import timedelta
+
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from patients.models import HealthRecord, LabResult, Patient
+from patients.models import Appointment, HealthRecord, LabResult, Patient
 
 
 class Command(BaseCommand):
@@ -35,6 +37,17 @@ class Command(BaseCommand):
                 "unit": "%",
                 "reference_range": "4.0-5.6",
                 "recorded_at": timezone.now(),
+            },
+        )
+
+        Appointment.objects.get_or_create(
+            patient=patient,
+            provider_name="Dr. Emily Carter",
+            scheduled_at=timezone.now() + timedelta(days=14),
+            defaults={
+                "reason": "Follow-up consultation",
+                "location": "Main Clinic, Room 204",
+                "status": Appointment.Status.SCHEDULED,
             },
         )
 

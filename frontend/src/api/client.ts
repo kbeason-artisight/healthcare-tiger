@@ -54,6 +54,15 @@ export interface LabResult {
   recorded_at: string;
 }
 
+export interface Appointment {
+  id: number;
+  provider_name: string;
+  reason: string;
+  scheduled_at: string;
+  location: string;
+  status: "scheduled" | "completed" | "cancelled";
+}
+
 export const api = {
   fetchCsrfCookie: () => request<{ csrfToken: string }>("/auth/csrf/"),
   login: async (username: string, password: string) => {
@@ -64,4 +73,5 @@ export const api = {
   me: () => request<Patient>("/me/"),
   healthRecords: () => request<HealthRecord[]>("/health-records/"),
   labResults: () => request<LabResult[]>("/lab-results/"),
+  appointments: () => request<Appointment[]>("/appointments/"),
 };
