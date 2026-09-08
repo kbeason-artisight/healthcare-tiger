@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import type { Patient } from "./api/client";
+import { api, type Patient } from "./api/client";
 import Appointments from "./pages/Appointments";
 import Billing from "./pages/Billing";
 import HealthRecords from "./pages/HealthRecords";
@@ -13,6 +13,19 @@ import Profile from "./pages/Profile";
 
 export default function App() {
   const [patient, setPatient] = useState<Patient | null>(null);
+  const [checkingSession, setCheckingSession] = useState(true);
+
+  useEffect(() => {
+    api
+      .me()
+      .then(setPatient)
+      .catch(() => setPatient(null))
+      .finally(() => setCheckingSession(false));
+  }, []);
+
+  if (checkingSession) {
+    return null;
+  }
 
   return (
     <Routes>
