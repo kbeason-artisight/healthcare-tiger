@@ -59,20 +59,27 @@
     <path d="M50 71.6 C51.4 74.6, 55.4 75.2, 57.2 73.2"/>
   </g>
 
-  <!-- stethoscope -->
-  <g fill="none" stroke="#2B1B0E" stroke-width="6.2" stroke-linecap="round">
-    <path d="M87.5 47 C89 65, 78 86, 52 90.5 C43 92, 34 87, 29 80"/>
-    <path d="M12.5 47 C12.5 57, 14.5 66, 18.5 71"/>
-  </g>
-  <g fill="none" stroke="#3B82F6" stroke-width="3.8" stroke-linecap="round">
-    <path d="M87.5 47 C89 65, 78 86, 52 90.5 C43 92, 34 87, 29 80"/>
-    <path d="M12.5 47 C12.5 57, 14.5 66, 18.5 71"/>
-  </g>
-  <circle cx="23.5" cy="75.5" r="7.6" fill="#2B1B0E"/>
-  <circle cx="23.5" cy="75.5" r="6" fill="#3B82F6"/>
-  <circle cx="23.5" cy="75.5" r="3.5" fill="#E3ECFA"/>
-  <circle cx="12.5" cy="47" r="3.5" fill="#2B1B0E"/>
-  <circle cx="12.5" cy="47" r="2.2" fill="#7FB0FF"/>
-  <circle cx="87.5" cy="47" r="3.5" fill="#2B1B0E"/>
-  <circle cx="87.5" cy="47" r="2.2" fill="#7FB0FF"/>
+  <!-- stethoscope: two ear tubes drape down the sides of the head and hang past
+       the jaw; the right arm drops vertically into the chestpiece hanging at lower right -->
+  <!-- tube casing -->
+  <path d="M16 46 C15.6 57, 15.8 68, 17 79 C19 88, 30 94.5, 44 95.6 C57 96.6, 69 93, 74.5 83.5" fill="none" stroke="#1E4FBF" stroke-width="5.9" stroke-linecap="round"/>
+  <path d="M86 46 C87.8 58, 87.2 69, 83.5 77 C81.8 80.5, 80.2 84, 79.5 87" fill="none" stroke="#1E4FBF" stroke-width="5.9" stroke-linecap="round"/>
+  <!-- blue tubing -->
+  <path d="M16 46 C15.6 57, 15.8 68, 17 79 C19 88, 30 94.5, 44 95.6 C57 96.6, 69 93, 74.5 83.5" fill="none" stroke="#3B82F6" stroke-width="4.4" stroke-linecap="round"/>
+  <path d="M86 46 C87.8 58, 87.2 69, 83.5 77 C81.8 80.5, 80.2 84, 79.5 87" fill="none" stroke="#3B82F6" stroke-width="4.4" stroke-linecap="round"/>
+  <!-- gloss -->
+  <path d="M16 46 C15.6 57, 15.8 68, 17 79 C19 88, 30 94.5, 44 95.6 C57 96.6, 69 93, 74.5 83.5" fill="none" stroke="#7FB0FF" stroke-width="1.2" stroke-linecap="round" opacity=".45"/>
+  <path d="M86 46 C87.8 58, 87.2 69, 83.5 77 C81.8 80.5, 80.2 84, 79.5 87" fill="none" stroke="#7FB0FF" stroke-width="1.2" stroke-linecap="round" opacity=".45"/>
+
+  <!-- chestpiece -->
+  <circle cx="78.5" cy="89.5" r="10" fill="#2B1B0E"/>
+  <circle cx="78.5" cy="89.5" r="8.1" fill="#3B82F6"/>
+  <circle cx="78.5" cy="89.5" r="5.6" fill="#E3ECFA"/>
+  <circle cx="75.6" cy="86.6" r="1.9" fill="#FFFFFF" opacity=".6"/>
+
+  <!-- earpieces -->
+  <circle cx="16" cy="46" r="3.6" fill="#1E4FBF"/>
+  <circle cx="16" cy="46" r="2.2" fill="#7FB0FF"/>
+  <circle cx="86" cy="46" r="3.6" fill="#1E4FBF"/>
+  <circle cx="86" cy="46" r="2.2" fill="#7FB0FF"/>
 </svg>
