@@ -9,7 +9,9 @@ import { Link as RouterLink, Outlet } from "react-router-dom";
 import { api, type Patient } from "../api/client";
 
 const NAV_LINKS = [
-  { to: "/", label: "Dashboard" },
+  { to: "/health-records", label: "Health Records" },
+  { to: "/lab-results", label: "Lab Results" },
+  { to: "/appointments", label: "Appointments" },
   { to: "/medications", label: "Medications" },
   { to: "/billing", label: "Billing" },
 ];

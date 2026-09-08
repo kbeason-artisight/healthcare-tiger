@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import type { Patient } from "./api/client";
+import Appointments from "./pages/Appointments";
 import Billing from "./pages/Billing";
-import Dashboard from "./pages/Dashboard";
+import HealthRecords from "./pages/HealthRecords";
+import LabResults from "./pages/LabResults";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Medications from "./pages/Medications";
@@ -26,7 +28,10 @@ export default function App() {
           )
         }
       >
-        <Route path="/" element={<Dashboard patient={patient!} />} />
+        <Route path="/" element={<Navigate to="/health-records" replace />} />
+        <Route path="/health-records" element={<HealthRecords />} />
+        <Route path="/lab-results" element={<LabResults />} />
+        <Route path="/appointments" element={<Appointments />} />
         <Route path="/medications" element={<Medications />} />
         <Route path="/billing" element={<Billing />} />
       </Route>

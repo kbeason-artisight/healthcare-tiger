@@ -58,7 +58,7 @@ Session-based auth via Django. Frontend must:
 
 ## Frontend pages
 
-`/` (dashboard: health records, lab results, appointments), `/medications`, `/billing`. All behind session auth via `Layout`, which also holds top nav.
+`/health-records`, `/lab-results`, `/appointments`, `/medications`, `/billing` (`/` redirects to `/health-records`). All behind session auth via `Layout`, which also holds top nav.
 
 ## Development without Docker
 
