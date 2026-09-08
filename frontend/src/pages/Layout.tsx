@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Link as RouterLink, Outlet } from "react-router-dom";
+import { Link as RouterLink, Outlet, useLocation } from "react-router-dom";
 
 import { api, type Patient } from "../api/client";
 
@@ -17,6 +17,8 @@ const NAV_LINKS = [
 ];
 
 export default function Layout({ patient, onLogout }: { patient: Patient; onLogout: () => void }) {
+  const location = useLocation();
+
   async function handleLogout() {
     await api.logout();
     onLogout();
@@ -28,11 +30,26 @@ export default function Layout({ patient, onLogout }: { patient: Patient; onLogo
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box display="flex" alignItems="center" gap={2}>
             <Typography variant="h6">{patient.full_name}</Typography>
-            {NAV_LINKS.map((link) => (
-              <Button key={link.to} color="inherit" component={RouterLink} to={link.to}>
-                {link.label}
-              </Button>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isActive = location.pathname === link.to;
+              return (
+                <Button
+                  key={link.to}
+                  color="inherit"
+                  component={RouterLink}
+                  to={link.to}
+                  sx={{
+                    fontWeight: isActive ? 700 : 400,
+                    borderBottom: isActive ? 2 : 2,
+                    borderColor: isActive ? "common.white" : "transparent",
+                    borderStyle: "solid",
+                    borderRadius: 0,
+                  }}
+                >
+                  {link.label}
+                </Button>
+              );
+            })}
           </Box>
           <Button color="inherit" onClick={handleLogout}>
             Sign out
