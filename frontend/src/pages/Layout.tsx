@@ -31,7 +31,7 @@ export default function Layout({ patient, onLogout }: { patient: Patient; onLogo
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box display="flex" alignItems="center" gap={2}>
             <Box display="flex" alignItems="center" gap={1} sx={{ mr: 2 }}>
-              <Box component="img" src={logo} alt="Healthcare Tiger" sx={{ width: 36, height: 49 }} />
+              <Box component="img" src={logo} alt="Healthcare Tiger" sx={{ width: 36, height: 50 }} />
               <Typography variant="h6" fontWeight={700}>
                 Healthcare Tiger
               </Typography>
