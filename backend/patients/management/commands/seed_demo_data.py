@@ -31,7 +31,18 @@ class Command(BaseCommand):
             user.save()
 
         patient, _ = Patient.objects.get_or_create(
-            user=user, defaults={"mrn": spec["mrn"], "date_of_birth": spec["date_of_birth"]}
+            user=user,
+            defaults={
+                "mrn": spec["mrn"],
+                "date_of_birth": spec["date_of_birth"],
+                "gender": spec["gender"],
+                "phone_number": spec["phone_number"],
+                "address_line1": spec["address_line1"],
+                "address_line2": spec.get("address_line2", ""),
+                "city": spec["city"],
+                "state": spec["state"],
+                "postal_code": spec["postal_code"],
+            },
         )
 
         for record in spec["health_records"]:
@@ -89,6 +100,13 @@ class Command(BaseCommand):
             "email": "jane.doe@example.com",
             "mrn": "MRN-00042",
             "date_of_birth": "1990-04-12",
+            "gender": Patient.Gender.FEMALE,
+            "phone_number": "(555) 201-4487",
+            "address_line1": "482 Maple Grove Lane",
+            "address_line2": "",
+            "city": "Springdale",
+            "state": "OR",
+            "postal_code": "97030",
             "health_records": [
                 {
                     "title": "Annual physical exam",
@@ -256,6 +274,13 @@ class Command(BaseCommand):
             "email": "anne.chovy@example.com",
             "mrn": "MRN-00087",
             "date_of_birth": "1978-11-03",
+            "gender": Patient.Gender.FEMALE,
+            "phone_number": "(555) 336-9012",
+            "address_line1": "17 Harbor View Court",
+            "address_line2": "Unit 4B",
+            "city": "Port Aldon",
+            "state": "WA",
+            "postal_code": "98104",
             "health_records": [
                 {
                     "title": "Annual physical exam",

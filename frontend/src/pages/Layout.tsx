@@ -15,6 +15,7 @@ const NAV_LINKS = [
   { to: "/appointments", label: "Appointments" },
   { to: "/medications", label: "Medications" },
   { to: "/billing", label: "Billing" },
+  { to: "/profile", label: "Profile" },
 ];
 
 export default function Layout({ patient, onLogout }: { patient: Patient; onLogout: () => void }) {

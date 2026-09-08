@@ -9,6 +9,7 @@ import LabResults from "./pages/LabResults";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Medications from "./pages/Medications";
+import Profile from "./pages/Profile";
 
 export default function App() {
   const [patient, setPatient] = useState<Patient | null>(null);
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/appointments" element={<Appointments />} />
         <Route path="/medications" element={<Medications />} />
         <Route path="/billing" element={<Billing />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
   );

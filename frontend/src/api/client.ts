@@ -87,6 +87,24 @@ export interface InsuranceSummary {
   deductible_met: string | null;
 }
 
+export interface PatientProfile {
+  id: number;
+  username: string;
+  full_name: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  mrn: string;
+  date_of_birth: string | null;
+  gender: "female" | "male" | "nonbinary" | "other" | "undisclosed";
+  phone_number: string;
+  address_line1: string;
+  address_line2: string;
+  city: string;
+  state: string;
+  postal_code: string;
+}
+
 export const api = {
   fetchCsrfCookie: () => request<{ csrfToken: string }>("/auth/csrf/"),
   login: async (username: string, password: string) => {
@@ -100,4 +118,5 @@ export const api = {
   appointments: () => request<Appointment[]>("/appointments/"),
   medications: () => request<Medication[]>("/medications/"),
   insuranceSummary: () => request<InsuranceSummary>("/insurance-summary/"),
+  profile: () => request<PatientProfile>("/profile/"),
 };

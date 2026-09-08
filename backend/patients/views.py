@@ -13,6 +13,7 @@ from .serializers import (
     InsuranceSummarySerializer,
     LabResultSerializer,
     MedicationSerializer,
+    PatientProfileSerializer,
     PatientSerializer,
 )
 
@@ -81,3 +82,10 @@ class InsuranceSummaryView(generics.RetrieveAPIView):
 
     def get_object(self):
         return get_object_or_404(InsuranceSummary, patient=self.request.user.patient)
+
+
+class PatientProfileView(generics.RetrieveAPIView):
+    serializer_class = PatientProfileSerializer
+
+    def get_object(self):
+        return self.request.user.patient

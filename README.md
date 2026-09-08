@@ -48,10 +48,11 @@ Session-based auth via Django. Frontend must:
 | `/api/appointments/` | GET | session | Scheduled appointments for the logged-in patient only |
 | `/api/medications/` | GET | session | Medications for the logged-in patient only |
 | `/api/insurance-summary/` | GET | session | Insurance/billing summary for the logged-in patient (404 if none on file) |
+| `/api/profile/` | GET | session | Full demographic profile for the logged-in patient |
 
 ## Data model
 
-- `Patient` — one-to-one with Django `User`, has `mrn` (medical record number).
+- `Patient` — one-to-one with Django `User`, has `mrn` (medical record number), plus demographics: `gender`, `phone_number`, `address_line1/2`, `city`, `state`, `postal_code`.
 - `HealthRecord` — belongs to a `Patient`.
 - `LabResult` — belongs to a `Patient`.
 - `Appointment` — belongs to a `Patient`; provider name, reason, scheduled time, location, status (`scheduled`/`completed`/`cancelled`).
@@ -60,7 +61,7 @@ Session-based auth via Django. Frontend must:
 
 ## Frontend pages
 
-`/health-records`, `/lab-results`, `/appointments`, `/medications`, `/billing` (`/` redirects to `/health-records`). All behind session auth via `Layout`, which also holds top nav.
+`/health-records`, `/lab-results`, `/appointments`, `/medications`, `/billing`, `/profile` (`/` redirects to `/health-records`). All behind session auth via `Layout`, which also holds top nav.
 
 ## Development without Docker
 

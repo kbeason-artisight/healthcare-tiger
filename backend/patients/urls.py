@@ -12,4 +12,5 @@ urlpatterns = [
     path("appointments/", views.AppointmentListView.as_view(), name="appointments"),
     path("medications/", views.MedicationListView.as_view(), name="medications"),
     path("insurance-summary/", views.InsuranceSummaryView.as_view(), name="insurance-summary"),
+    path("profile/", views.PatientProfileView.as_view(), name="profile"),
 ]

@@ -15,6 +15,37 @@ class PatientSerializer(serializers.ModelSerializer):
         return obj.user.get_full_name() or obj.user.username
 
 
+class PatientProfileSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source="user.username", read_only=True)
+    full_name = serializers.SerializerMethodField()
+    first_name = serializers.CharField(source="user.first_name", read_only=True)
+    last_name = serializers.CharField(source="user.last_name", read_only=True)
+    email = serializers.EmailField(source="user.email", read_only=True)
+
+    class Meta:
+        model = Patient
+        fields = [
+            "id",
+            "username",
+            "full_name",
+            "first_name",
+            "last_name",
+            "email",
+            "mrn",
+            "date_of_birth",
+            "gender",
+            "phone_number",
+            "address_line1",
+            "address_line2",
+            "city",
+            "state",
+            "postal_code",
+        ]
+
+    def get_full_name(self, obj):
+        return obj.user.get_full_name() or obj.user.username
+
+
 class HealthRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = HealthRecord

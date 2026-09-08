@@ -3,9 +3,23 @@ from django.db import models
 
 
 class Patient(models.Model):
+    class Gender(models.TextChoices):
+        FEMALE = "female", "Female"
+        MALE = "male", "Male"
+        NONBINARY = "nonbinary", "Non-binary"
+        OTHER = "other", "Other"
+        UNDISCLOSED = "undisclosed", "Prefer not to say"
+
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="patient")
     date_of_birth = models.DateField(null=True, blank=True)
     mrn = models.CharField(max_length=32, unique=True, help_text="Medical record number")
+    gender = models.CharField(max_length=16, choices=Gender.choices, default=Gender.UNDISCLOSED)
+    phone_number = models.CharField(max_length=32, blank=True)
+    address_line1 = models.CharField(max_length=255, blank=True)
+    address_line2 = models.CharField(max_length=255, blank=True)
+    city = models.CharField(max_length=128, blank=True)
+    state = models.CharField(max_length=64, blank=True)
+    postal_code = models.CharField(max_length=16, blank=True)
 
     def __str__(self):
         return f"{self.user.get_full_name() or self.user.username} ({self.mrn})"
