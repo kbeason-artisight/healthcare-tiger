@@ -29,7 +29,15 @@ export default function Layout({ patient, onLogout }: { patient: Patient; onLogo
       <AppBar position="static">
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box display="flex" alignItems="center" gap={2}>
-            <Typography variant="h6">{patient.full_name}</Typography>
+            <Box display="flex" alignItems="center" gap={1} sx={{ mr: 2 }}>
+              <Typography fontSize={28} aria-label="Healthcare Tiger" role="img">
+                🐯🩺
+              </Typography>
+              <Typography variant="h6" fontWeight={700}>
+                Healthcare Tiger
+              </Typography>
+            </Box>
+            <Typography variant="body1">{patient.full_name}</Typography>
             {NAV_LINKS.map((link) => {
               const isActive = location.pathname === link.to;
               return (

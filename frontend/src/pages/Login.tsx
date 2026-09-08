@@ -28,7 +28,7 @@ export default function Login({ onLogin }: { onLogin: (patient: Patient) => void
     <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="grey.100">
       <Paper component="form" onSubmit={handleSubmit} sx={{ p: 4, width: 360 }}>
         <Typography variant="h5" gutterBottom>
-          Patient Portal
+          🐯 Healthcare Tiger
         </Typography>
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>

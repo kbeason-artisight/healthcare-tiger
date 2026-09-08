@@ -1,4 +1,4 @@
-# Patient Records Portal
+# Healthcare Tiger
 
 Demo healthcare app for PR-review interview exercises. Patients log in and view their own health records, lab results, appointments, medications, and insurance/billing summary.
 

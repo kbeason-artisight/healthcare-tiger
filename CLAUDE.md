@@ -1,4 +1,4 @@
-# Patient Records Portal — project notes
+# Healthcare Tiger — project notes
 
 Interview-exercise repo: reviewers audit a PR against this baseline. See README.md for stack/setup.
 
