@@ -96,6 +96,13 @@ class Medication(models.Model):
         return f"{self.name} ({self.patient})"
 
 
+class RecordShare(models.Model):
+    owner_patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="shares_given")
+
+    def __str__(self):
+        return f"Share for {self.owner_patient}"
+
+
 class InsuranceSummary(models.Model):
     patient = models.OneToOneField(Patient, on_delete=models.CASCADE, related_name="insurance_summary")
     payer_name = models.CharField(max_length=255)

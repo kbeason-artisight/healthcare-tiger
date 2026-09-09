@@ -10,6 +10,7 @@ import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Medications from "./pages/Medications";
 import Profile from "./pages/Profile";
+import SharedRecords from "./pages/SharedRecords";
 
 export default function App() {
   const [patient, setPatient] = useState<Patient | null>(null);
@@ -29,6 +30,7 @@ export default function App() {
 
   return (
     <Routes>
+      <Route path="/shared/:shareId" element={<SharedRecords />} />
       <Route
         path="/login"
         element={patient ? <Navigate to="/" replace /> : <Login onLogin={setPatient} />}
