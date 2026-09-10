@@ -26,7 +26,7 @@ export default function Login({ onLogin }: { onLogin: (patient: Patient) => void
   }
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="grey.100">
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="background.default">
       <Paper component="form" onSubmit={handleSubmit} sx={{ p: 4, width: 360 }}>
         <Box display="flex" alignItems="center" justifyContent="center" gap={1.5} sx={{ mb: 2 }}>
           <Box component="img" src={logo} alt="Healthcare Tiger" sx={{ width: 48, height: 48 }} />
