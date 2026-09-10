@@ -18,37 +18,9 @@ docker-compose up --build
 - Frontend: http://localhost:5173
 - Postgres: internal only (`db:5432` inside the compose network; not exposed to host)
 
-First run applies migrations automatically. Seed a demo patient:
-
-```bash
-docker-compose exec backend python manage.py seed_demo_data
-```
-
 Demo logins (password `demopassword123` for both):
 - `jane.doe`
 - `anne.chovy`
-
-## Auth flow
-
-Session-based auth via Django. Frontend must:
-1. `GET /api/auth/csrf/` to receive a `csrftoken` cookie.
-2. `POST /api/auth/login/` with `{ username, password }`, sending the CSRF token in the `X-CSRFToken` header. This sets the session cookie.
-3. Subsequent requests use `credentials: "include"`.
-
-## API
-
-| Endpoint | Method | Auth | Description |
-|---|---|---|---|
-| `/api/auth/csrf/` | GET | none | Sets CSRF cookie |
-| `/api/auth/login/` | POST | none | Logs in, starts session |
-| `/api/auth/logout/` | POST | session | Ends session |
-| `/api/me/` | GET | session | Current patient profile |
-| `/api/health-records/` | GET | session | Health records for the logged-in patient only |
-| `/api/lab-results/` | GET | session | Lab results for the logged-in patient only |
-| `/api/appointments/` | GET | session | Scheduled appointments for the logged-in patient only |
-| `/api/medications/` | GET | session | Medications for the logged-in patient only |
-| `/api/insurance-summary/` | GET | session | Insurance/billing summary for the logged-in patient (404 if none on file) |
-| `/api/profile/` | GET | session | Full demographic profile for the logged-in patient |
 
 ## Data model
 
@@ -72,6 +44,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 # point POSTGRES_HOST at a local/dockerized Postgres, then:
 python manage.py migrate
+python manage.py seed_demo_data
 python manage.py runserver
 
 # frontend
