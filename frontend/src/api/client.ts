@@ -87,6 +87,10 @@ export interface InsuranceSummary {
   deductible_met: string | null;
 }
 
+export interface RecordShare {
+  id: number;
+}
+
 export interface PatientProfile {
   id: number;
   username: string;
@@ -119,4 +123,12 @@ export const api = {
   medications: () => request<Medication[]>("/medications/"),
   insuranceSummary: () => request<InsuranceSummary>("/insurance-summary/"),
   profile: () => request<PatientProfile>("/profile/"),
+  listShares: () => request<RecordShare[]>("/shares/"),
+  createShare: () => request<RecordShare>("/shares/", { method: "POST", body: JSON.stringify({}) }),
+  sharedLink: (shareId: number) => request<PatientProfile>(`/shared/${shareId}/`),
+  sharedHealthRecords: (shareId: number) => request<HealthRecord[]>(`/shared/${shareId}/health-records/`),
+  sharedLabResults: (shareId: number) => request<LabResult[]>(`/shared/${shareId}/lab-results/`),
+  sharedAppointments: (shareId: number) => request<Appointment[]>(`/shared/${shareId}/appointments/`),
+  sharedMedications: (shareId: number) => request<Medication[]>(`/shared/${shareId}/medications/`),
+  sharedInsuranceSummary: (shareId: number) => request<InsuranceSummary>(`/shared/${shareId}/insurance-summary/`),
 };

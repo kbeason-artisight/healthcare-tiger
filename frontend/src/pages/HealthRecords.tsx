@@ -1,9 +1,17 @@
 import DescriptionIcon from "@mui/icons-material/Description";
+import ShareIcon from "@mui/icons-material/Share";
 import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Chip from "@mui/material/Chip";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 
@@ -13,6 +21,38 @@ import SectionHeading from "../components/SectionHeading";
 
 function dateKey(isoString: string): string {
   return isoString.slice(0, 10);
+}
+
+function ShareHealthRecordsButton() {
+  const [open, setOpen] = useState(false);
+  const [link, setLink] = useState("");
+
+  function handleClick() {
+    setOpen(true);
+    api.createShare().then((share) => setLink(`${window.location.origin}/shared/${share.id}`));
+  }
+
+  return (
+    <>
+      <Button startIcon={<ShareIcon />} variant="outlined" onClick={handleClick} sx={{ ml: "auto" }}>
+        Share
+      </Button>
+      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="xs">
+        <DialogTitle>Share your health records</DialogTitle>
+        <DialogContent>
+          <TextField
+            value={link}
+            onChange={(event) => setLink(event.target.value)}
+            size="small"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
 }
 
 export default function HealthRecords() {
@@ -47,11 +87,16 @@ export default function HealthRecords() {
 
   return (
     <>
-      <PageHeader
-        icon={DescriptionIcon}
-        title="Health Records"
-        subtitle="Visit summaries and notes from your care team"
-      />
+      <Stack direction="row" alignItems="center">
+        <Box flexGrow={1}>
+          <PageHeader
+            icon={DescriptionIcon}
+            title="Health Records"
+            subtitle="Visit summaries and notes from your care team"
+          />
+        </Box>
+        <ShareHealthRecordsButton />
+      </Stack>
       {groups.map((group) => (
         <Stack key={group.key} spacing={2} sx={{ mb: 4 }}>
           <SectionHeading>{group.label}</SectionHeading>

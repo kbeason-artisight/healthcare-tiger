@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Appointment, HealthRecord, InsuranceSummary, LabResult, Medication, Patient
+from .models import Appointment, HealthRecord, InsuranceSummary, LabResult, Medication, Patient, RecordShare
 
 
 class PatientSerializer(serializers.ModelSerializer):
@@ -77,6 +77,12 @@ class MedicationSerializer(serializers.ModelSerializer):
             "end_date",
             "status",
         ]
+
+
+class RecordShareSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecordShare
+        fields = ["id"]
 
 
 class InsuranceSummarySerializer(serializers.ModelSerializer):
